@@ -1,5 +1,5 @@
 import pygame
-
+import random
 # --- constants --- (UPPER_CASE names)
 
 SCREEN_WIDTH = 1000
@@ -12,23 +12,76 @@ RED   = (255,   0,   0)
 FPS = 30
 
 
+
 # - init -
 
 pygame.init()
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-screen.fill((0,0,255))
-#screen_rect = screen.get_rect()
-
-pygame.display.set_caption("Tracking System")
-
 # - objects -
+class Screen:
+    def __init__(self):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption("Jeu 1")
 
-rectangle = pygame.rect.Rect(176, 134, 200, 200)
-rectangle_draging = False
+    def draw(self):
+        self.screen.fill((0,0,255))
+        pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(100, 100, 200, 200))
+        pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(500, 100, 200, 200))
+        offsetX=350
+        offsetY=180
+        pygame.draw.polygon(self.screen, (200,50,37),
+        [(20+offsetX,20+offsetY),
+        (80+offsetX,20+offsetY),
+        (80+offsetX,10+offsetY),
+        (100+offsetX,30+offsetY),
+        (80+offsetX,50+offsetY),
+        (80+offsetX,40+offsetY),
+        (20+offsetX,40+offsetY)])
+
+sc = Screen()
+sc.draw()
+liste = []
+class Rectangle:
+    def __init__(self):
+        self.rectangle = pygame.rect.Rect(random.randint(100,800), random.randint(100,800), 200, 200)
+        self.rectangle_draging = False
+        liste.append(self)
+
+rect1=Rectangle()
+rect2=Rectangle()
 
 # - function -
 
+
+def drag(events):
+    global running
+    global rectangle_draging
+    global offset_x
+    global offset_y
+    for event in events:
+        if event.type == pygame.QUIT:
+            running = False
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  
+                for rect in liste:          
+                    if rect.rectangle.collidepoint(event.pos):
+                        rect.rectangle_draging = True
+                        mouse_x, mouse_y = event.pos
+                        offset_x = rect.rectangle.x - mouse_x
+                        offset_y = rect.rectangle.y - mouse_y
+
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                for rect in liste:            
+                    rect.rectangle_draging = False
+
+        elif event.type == pygame.MOUSEMOTION:
+            for rect in liste:
+                if rect.rectangle_draging:
+                    mouse_x, mouse_y = event.pos
+                    rect.rectangle.x = mouse_x + offset_x
+                    rect.rectangle.y = mouse_y + offset_y
 # - mainloop -
 
 clock = pygame.time.Clock()
@@ -37,34 +90,14 @@ while running:
 
     # - events -
     events = pygame.event.get()
-
-    for event in events:
-        if event.type == pygame.QUIT:
-            running = False
-
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:            
-                if rectangle.collidepoint(event.pos):
-                    rectangle_draging = True
-                    mouse_x, mouse_y = event.pos
-                    offset_x = rectangle.x - mouse_x
-                    offset_y = rectangle.y - mouse_y
-
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:            
-                rectangle_draging = False
-
-        elif event.type == pygame.MOUSEMOTION:
-            if rectangle_draging:
-                mouse_x, mouse_y = event.pos
-                rectangle.x = mouse_x + offset_x
-                rectangle.y = mouse_y + offset_y
+    drag(events)
 
     # - updates (without draws) -
 
     # - draws (without updates) -
-    screen.fill((0,0,255))
-    pygame.draw.rect(screen, RED, rectangle)
+    sc.draw()
+    for rect in liste:
+        pygame.draw.rect(sc.screen, RED, rect.rectangle)
     pygame.display.flip()
 
     # - constant game speed / FPS -
