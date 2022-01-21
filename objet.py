@@ -37,11 +37,11 @@ class image:
 class Fleche:
     def __init__(self, can, x, y, color=(255,255,255)):
         pygame.draw.polygon(can, color,
-        [(20+x,20+y),
-        (80+x,20+y),
+        [(x,y),
+        (60+x,y),
+        (60+x,-10+y),
         (80+x,10+y),
-        (100+x,30+y),
-        (80+x,50+y),
-        (80+x,40+y),
-        (20+x,40+y)])
+        (60+x,30+y),
+        (60+x,20+y),
+        (x,20+y)])
 

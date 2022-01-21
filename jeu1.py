@@ -5,7 +5,7 @@ from objet import *
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
-NB = 2
+NB = 3
 
 #BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
@@ -13,12 +13,14 @@ RED   = (255,   0,   0)
 
 FPS = 30
 
-
-
 # - init -
 pygame.init()
 
 # - objects -
+def espace(l_carre,l_fleche):
+    x=SCREEN_WIDTH*.9
+    return  (x-NB*l_carre-(NB-1)*l_fleche)/(2*(NB-1))
+
 class Screen:
     def __init__(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -27,14 +29,15 @@ class Screen:
     def draw(self):
         self.screen.fill((0,0,255))
         for i in range (NB):
-            Emplacement(self.screen, 100 + 400*i, 100, 200)
-            Fleche(self.screen, 350 + 400*i, 180)
+            Emplacement(self.screen, SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80), 100, 200,i)
+        for j in range (NB-1):
+            Fleche(self.screen, SCREEN_WIDTH*.05+200+espace(200,80)+j*(2*espace(200,80)+200+80), 180)
 
 
 sc = Screen()
 sc.draw()
 for i in range (NB):
-    Carre(random.randint(200,800),700, 200, i)
+    Carre(200+ 200*i,700, 200, i)
 
 
 # - function -
@@ -64,8 +67,8 @@ def drag(events):
                 for rect in Carre.liste:            
                     rect.rectangle_draging = False
                     for i in range (NB):
-                        if 50 + i*400<rect.rectangle.x < 150 + i*400 and 50<rect.rectangle.y < 150 :
-                            rect.rectangle.x = 100 + i*400
+                        if SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80) - 50 <rect.rectangle.x < SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80) + 50 and 50<rect.rectangle.y < 150 :
+                            rect.rectangle.x = SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80)
                             rect.rectangle.y = 100 
 
         elif event.type == pygame.MOUSEMOTION:
@@ -88,7 +91,7 @@ while running:
     win = False
     for carre in Carre.liste:
         for i in range(NB):
-            if carre.rectangle.x == 100 + 400*i and carre.rectangle.y == 100 and carre.value == i:
+            if carre.rectangle.x == SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80) and carre.rectangle.y == 100 and carre.value == i:
                 tot+=1
     if tot == NB:
         win = True
@@ -96,13 +99,11 @@ while running:
     sc.draw()
     for rect in Carre.liste:
         pygame.draw.rect(sc.screen, RED, rect.rectangle)
-    pygame.display.flip()
     if win == True:
-        font = pygame.font.Font('freesansbold.ttf', 32)
-        text = font.render('GeeksForGeeks', True, (255,255,255))
-        textRect = text.get_rect()
+        pygame.draw.rect(sc.screen, (255,0,255), pygame.rect.Rect(400,400, 300, 300))
         print("gg")
-        pygame.display_surface.blit(text, textRect)
+    pygame.display.flip()
+    
     # - constant game speed / FPS -
     clock.tick(FPS)
 
