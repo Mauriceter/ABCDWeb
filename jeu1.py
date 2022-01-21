@@ -14,7 +14,6 @@ FPS = 30
 
 
 # - init -
-
 pygame.init()
 
 # - objects -
@@ -39,11 +38,7 @@ class Screen:
         (20+offsetX,40+offsetY)])
 
 
-class Rectangle:
-    def __init__(self):
-        self.rectangle = pygame.rect.Rect(random.randint(100,800), random.randint(100,800), 200, 200)
-        self.rectangle_draging = False
-        liste.append(self)
+c
 
 sc = Screen()
 sc.draw()
