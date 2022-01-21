@@ -1,5 +1,6 @@
 import pygame
 import random
+import object
 # --- constants --- (UPPER_CASE names)
 
 SCREEN_WIDTH = 1000
@@ -10,6 +11,7 @@ WHITE = (255, 255, 255)
 RED   = (255,   0,   0)
 
 FPS = 30
+nb = 2
 
 
 
@@ -18,6 +20,8 @@ FPS = 30
 pygame.init()
 
 # - objects -
+
+
 class Screen:
     def __init__(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -29,6 +33,7 @@ class Screen:
         pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(500, 100, 200, 200))
         offsetX=350
         offsetY=180
+
         pygame.draw.polygon(self.screen, (200,50,37),
         [(20+offsetX,20+offsetY),
         (80+offsetX,20+offsetY),
