@@ -31,14 +31,12 @@ class Screen:
             Fleche(self.screen, 350 + 400*i, 180)
 
 
-c
-
 sc = Screen()
 sc.draw()
 liste = []
 
-rect1=Rectangle()
-rect2=Rectangle()
+rect1=Carre(600, 300, 100)
+rect2=Carre(600, 700, 100)
 
 # - function -
 
