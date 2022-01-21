@@ -70,11 +70,15 @@ def drag(events):
                         mouse_x, mouse_y = event.pos
                         offset_x = rect.rectangle.x - mouse_x
                         offset_y = rect.rectangle.y - mouse_y
+                        break
 
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 for rect in liste:            
                     rect.rectangle_draging = False
+                    if 50<rect.rectangle.x < 150 and 50<rect.rectangle.y < 150:
+                        rect.rectangle.x = 100
+                        rect.rectangle.y = 100
 
         elif event.type == pygame.MOUSEMOTION:
             for rect in liste:
