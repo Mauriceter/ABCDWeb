@@ -5,7 +5,7 @@ from objet import *
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
-NB = 2
+NB = 3
 
 #BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
@@ -13,12 +13,13 @@ RED   = (255,   0,   0)
 
 FPS = 30
 
-
-
 # - init -
 pygame.init()
 
 # - objects -
+def espace(l_carre,l_fleche):
+    x=SCREEN_WIDTH*.9
+    return  (x-NB*l_carre-(NB-1)*l_fleche)/(2*(NB-1))
 class Screen:
     def __init__(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -27,8 +28,9 @@ class Screen:
     def draw(self):
         self.screen.fill((0,0,255))
         for i in range (NB):
-            Emplacement(self.screen, 100 + 400*i, 100, 200, i)
-            Fleche(self.screen, 350 + 400*i, 180)
+            Emplacement(self.screen, SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80), 100, 200,i)
+        for j in range (NB-1):
+            Fleche(self.screen, SCREEN_WIDTH*.05+200+espace(200,80)+j*(2*espace(200,80)+200+80), 180)
 
 
 sc = Screen()
