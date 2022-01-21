@@ -1,9 +1,11 @@
 import pygame
 import random
+from objet import *
 # --- constants --- (UPPER_CASE names)
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 1000
+NB = 2
 
 #BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
@@ -29,14 +31,8 @@ class Screen:
         pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(500, 100, 200, 200))
         offsetX=350
         offsetY=180
-        pygame.draw.polygon(self.screen, (200,50,37),
-        [(20+offsetX,20+offsetY),
-        (80+offsetX,20+offsetY),
-        (80+offsetX,10+offsetY),
-        (100+offsetX,30+offsetY),
-        (80+offsetX,50+offsetY),
-        (80+offsetX,40+offsetY),
-        (20+offsetX,40+offsetY)])
+        for i in range (NB):
+            Fleche(self.screen, offsetX*(i+1), offsetY)
 
 
 class Rectangle:
