@@ -27,7 +27,7 @@ class Screen:
     def draw(self):
         self.screen.fill((0,0,255))
         for i in range (NB):
-            Emplacement(self.screen, 100 + 400*i, 100, 200, i)
+            Emplacement(self.screen, 100 + 400*i, 100, 200)
             Fleche(self.screen, 350 + 400*i, 180)
 
 
@@ -85,19 +85,24 @@ while running:
 
     # - updates (without draws) -
     tot=0
+    win = False
     for carre in Carre.liste:
-        for emp in Emplacement.liste:
-            if carre.rectangle.x == emp.rectangle.x and carre.value == emp.value:
+        for i in range(NB):
+            if carre.rectangle.x == 100 + 400*i and carre.rectangle.y == 100 and carre.value == i:
                 tot+=1
-    print(tot)
     if tot == NB:
-        print("gg!")
+        win = True
     # - draws (without updates) -
     sc.draw()
     for rect in Carre.liste:
         pygame.draw.rect(sc.screen, RED, rect.rectangle)
     pygame.display.flip()
-
+    if win == True:
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        text = font.render('GeeksForGeeks', True, (255,255,255))
+        textRect = text.get_rect()
+        print("gg")
+        pygame.display_surface.blit(text, textRect)
     # - constant game speed / FPS -
     clock.tick(FPS)
 

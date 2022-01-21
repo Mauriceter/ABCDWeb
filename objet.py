@@ -24,12 +24,9 @@ class Carre:
         self.rectangle = pygame.rect.Rect(self.x,self.y, self.heigh, self.heigh)
 
 class Emplacement:
-    liste = []
-    def __init__(self, can, x,y,heigh,value, color = (23, 250, 59)):
+    def __init__(self, can, x,y,heigh, color = (23, 250, 59)):
         self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
-        self.value = value
         pygame.draw.rect(can, color, self.rectangle)
-        Emplacement.liste.append(self)
 
 
 class image:
