@@ -2,19 +2,18 @@ import pygame
 
 class Carre:
     liste = []
-    def __init__(self,x,y,heigh):
+    def __init__(self,x,y,heigh, value):
         self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
-        self.x=x
-        self.y=y
         self.heigh=heigh
+        self.value = value
         self.rectangle_draging = False
         Carre.liste.append(self)
 
     def getx(self):
-        return self.x
+        return self.rectangle.x
 
     def gety(self):
-        return self.y
+        return self.rectangle.y
     
     def getheigh(self):
         return self.heigh
@@ -23,6 +22,15 @@ class Carre:
         self.x+=dx
         self.y+=dy
         self.rectangle = pygame.rect.Rect(self.x,self.y, self.heigh, self.heigh)
+
+class Emplacement:
+    liste = []
+    def __init__(self, can, x,y,heigh,value, color = (23, 250, 59)):
+        self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
+        self.value = value
+        pygame.draw.rect(can, color, self.rectangle)
+        Emplacement.liste.append(self)
+
 
 class image:
     def __init__(self,carre,path):

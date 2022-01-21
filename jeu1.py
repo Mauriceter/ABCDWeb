@@ -27,16 +27,16 @@ class Screen:
     def draw(self):
         self.screen.fill((0,0,255))
         for i in range (NB):
-            pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(100 + 400*i, 100, 200, 200))
+            Emplacement(self.screen, 100 + 400*i, 100, 200, i)
             Fleche(self.screen, 350 + 400*i, 180)
 
 
 sc = Screen()
 sc.draw()
 for i in range (NB):
-    Carre(random.randint(200,800),700, 200)
+    Carre(random.randint(200,800),700, 200, i)
 
-print(Carre.liste)
+
 # - function -
 
 
@@ -63,9 +63,10 @@ def drag(events):
             if event.button == 1:
                 for rect in Carre.liste:            
                     rect.rectangle_draging = False
-                    if 50<rect.rectangle.x < 150 and 50<rect.rectangle.y < 150:
-                        rect.rectangle.x = 100
-                        rect.rectangle.y = 100
+                    for i in range (NB):
+                        if 50 + i*400<rect.rectangle.x < 150 + i*400 and 50<rect.rectangle.y < 150 :
+                            rect.rectangle.x = 100 + i*400
+                            rect.rectangle.y = 100 
 
         elif event.type == pygame.MOUSEMOTION:
             for rect in Carre.liste:
@@ -83,7 +84,14 @@ while running:
     drag(events)
 
     # - updates (without draws) -
-
+    tot=0
+    for carre in Carre.liste:
+        for emp in Emplacement.liste:
+            if carre.rectangle.x == emp.rectangle.x and carre.value == emp.value:
+                tot+=1
+    print(tot)
+    if tot == NB:
+        print("gg!")
     # - draws (without updates) -
     sc.draw()
     for rect in Carre.liste:
