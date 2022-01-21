@@ -1,12 +1,14 @@
 import pygame
 
 class Carre:
+    liste = []
     def __init__(self,x,y,heigh):
         self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
         self.x=x
         self.y=y
         self.heigh=heigh
         self.rectangle_draging = False
+        Carre.liste.append(self)
 
     def getx(self):
         return self.x

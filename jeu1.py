@@ -33,11 +33,10 @@ class Screen:
 
 sc = Screen()
 sc.draw()
-liste = []
+for i in range (NB):
+    Carre(random.randint(200,800),700, 200)
 
-rect1=Carre(600, 300, 100)
-rect2=Carre(600, 700, 100)
-
+print(Carre.liste)
 # - function -
 
 
@@ -52,7 +51,7 @@ def drag(events):
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:  
-                for rect in liste:          
+                for rect in Carre.liste:          
                     if rect.rectangle.collidepoint(event.pos):
                         rect.rectangle_draging = True
                         mouse_x, mouse_y = event.pos
@@ -62,14 +61,14 @@ def drag(events):
 
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
-                for rect in liste:            
+                for rect in Carre.liste:            
                     rect.rectangle_draging = False
                     if 50<rect.rectangle.x < 150 and 50<rect.rectangle.y < 150:
                         rect.rectangle.x = 100
                         rect.rectangle.y = 100
 
         elif event.type == pygame.MOUSEMOTION:
-            for rect in liste:
+            for rect in Carre.liste:
                 if rect.rectangle_draging:
                     mouse_x, mouse_y = event.pos
                     rect.rectangle.x = mouse_x + offset_x
@@ -87,7 +86,7 @@ while running:
 
     # - draws (without updates) -
     sc.draw()
-    for rect in liste:
+    for rect in Carre.liste:
         pygame.draw.rect(sc.screen, RED, rect.rectangle)
     pygame.display.flip()
 
