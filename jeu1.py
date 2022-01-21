@@ -27,12 +27,9 @@ class Screen:
 
     def draw(self):
         self.screen.fill((0,0,255))
-        pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(100, 100, 200, 200))
-        pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(500, 100, 200, 200))
-        offsetX=350
-        offsetY=180
         for i in range (NB):
-            Fleche(self.screen, offsetX*(i+1), offsetY)
+            pygame.draw.rect(self.screen, (255,0,255), pygame.rect.Rect(100 + 400*i, 100, 200, 200))
+            Fleche(self.screen, 350 + 400*i, 180)
 
 
 class Rectangle:
@@ -89,7 +86,6 @@ def drag(events):
 clock = pygame.time.Clock()
 running = True
 while running:
-
     # - events -
     events = pygame.event.get()
     drag(events)
