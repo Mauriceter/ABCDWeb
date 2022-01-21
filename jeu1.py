@@ -38,14 +38,16 @@ class Screen:
         (80+offsetX,40+offsetY),
         (20+offsetX,40+offsetY)])
 
-sc = Screen()
-sc.draw()
-liste = []
+
 class Rectangle:
     def __init__(self):
         self.rectangle = pygame.rect.Rect(random.randint(100,800), random.randint(100,800), 200, 200)
         self.rectangle_draging = False
         liste.append(self)
+
+sc = Screen()
+sc.draw()
+liste = []
 
 rect1=Rectangle()
 rect2=Rectangle()
