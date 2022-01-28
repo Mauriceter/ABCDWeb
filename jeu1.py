@@ -3,9 +3,10 @@ import random
 from objet import *
 # --- constants --- (UPPER_CASE names)
 
-SCREEN_WIDTH = 1000
+SCREEN_WIDTH = 1500
 SCREEN_HEIGHT = 1000
-NB = 3
+NB = 4
+
 
 #BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
@@ -37,8 +38,7 @@ class Screen:
 sc = Screen()
 sc.draw()
 for i in range (NB):
-    Carre(200+ 200*i,700, 200, i)
-
+    Carre("image/img"+str(i+1)+".png",200+ 200*i,700, 200, i)
 
 # - function -
 
@@ -91,17 +91,17 @@ while running:
     win = False
     for carre in Carre.liste:
         for i in range(NB):
-            if carre.rectangle.x == SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80) and carre.rectangle.y == 100 and carre.value == i:
+            if carre.rectangle.x == int(SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80)) and carre.rectangle.y == 100 and carre.value == i:
                 tot+=1
     if tot == NB:
         win = True
     # - draws (without updates) -
     sc.draw()
     for rect in Carre.liste:
-        pygame.draw.rect(sc.screen, RED, rect.rectangle)
+        sc.screen.blit(rect.image, rect.rectangle)
+        #pygame.draw.rect(sc.screen, RED, rect.rectangle)
     if win == True:
         pygame.draw.rect(sc.screen, (255,0,255), pygame.rect.Rect(400,400, 300, 300))
-        print("gg")
     pygame.display.flip()
     
     # - constant game speed / FPS -

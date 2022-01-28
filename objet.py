@@ -2,8 +2,13 @@ import pygame
 
 class Carre:
     liste = []
-    def __init__(self,x,y,heigh, value):
-        self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
+    def __init__(self,path,x,y,heigh, value):
+        self.image = pygame.image.load(path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (heigh, heigh))
+        self.rectangle = self.image.get_rect()
+        self.rectangle.center = (x, y)
+
+        #self.rectangle = pygame.rect.Rect(x,y, heigh, heigh)
         self.heigh=heigh
         self.value = value
         self.rectangle_draging = False
