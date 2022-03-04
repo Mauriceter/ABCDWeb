@@ -28,7 +28,7 @@ class Screen:
         pygame.display.set_caption("Jeu 1")
 
     def draw(self):
-        self.screen.fill((0,0,255))
+        self.screen.fill((255,228,196))
         for i in range (NB):
             Emplacement(self.screen, SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80), 100, 200,i)
         for j in range (NB-1):
@@ -101,7 +101,7 @@ while running:
         sc.screen.blit(rect.image, rect.rectangle)
         #pygame.draw.rect(sc.screen, RED, rect.rectangle)
     if win == True:
-        pygame.draw.rect(sc.screen, (255,0,255), pygame.rect.Rect(400,400, 300, 300))
+        pygame.draw.rect(sc.screen, (176,242,182), pygame.rect.Rect(400,400, 300, 300))
     pygame.display.flip()
     
     # - constant game speed / FPS -
