@@ -5,19 +5,15 @@ from objet import *
 
 SCREEN_WIDTH = 1500
 SCREEN_HEIGHT = 1000
-NB = 4
+NB = 4  #Nombre d'images
 
-
-#BLACK = (  0,   0,   0)
-WHITE = (255, 255, 255)
-RED   = (255,   0,   0)
 
 FPS = 30
 
 # - init -
 pygame.init()
 
-# - objects -
+# - objects - function
 def espace(l_carre,l_fleche):
     x=SCREEN_WIDTH*.9
     return  (x-NB*l_carre-(NB-1)*l_fleche)/(2*(NB-1))
@@ -39,8 +35,6 @@ sc = Screen()
 sc.draw()
 for i in range (NB):
     Carre("image/img"+str(i+1)+".png",200+ 200*i,700, 200, i)
-
-# - function -
 
 
 def drag(events):
@@ -93,6 +87,8 @@ while running:
         for i in range(NB):
             if carre.rectangle.x == int(SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80)) and carre.rectangle.y == 100 and carre.value == i:
                 tot+=1
+            elif carre.rectangle.x == int(SCREEN_WIDTH*.05+i*(2*espace(200,80)+200+80)) and carre.rectangle.y == 100 and carre.value != i:
+                carre.rectangle.y = 700
     if tot == NB:
         win = True
     # - draws (without updates) -
@@ -101,7 +97,13 @@ while running:
         sc.screen.blit(rect.image, rect.rectangle)
         #pygame.draw.rect(sc.screen, RED, rect.rectangle)
     if win == True:
-        pygame.draw.rect(sc.screen, (176,242,182), pygame.rect.Rect(400,400, 300, 300))
+        pygame.display.set_caption('Show Text')
+        font = pygame.font.Font('freesansbold.ttf', 64)
+        text = font.render('BRAVO', True, (50,242,50))
+        textRect = text.get_rect()
+        textRect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+        sc.screen.blit(text, textRect)
     pygame.display.flip()
     
     # - constant game speed / FPS -
